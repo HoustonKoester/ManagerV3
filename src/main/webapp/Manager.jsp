@@ -9,5 +9,8 @@
 <body>
 This is some text for managers <br>
 <img alt="rand" src="https://ak1.picdn.net/shutterstock/videos/2343311/thumb/1.jpg">
+<form action="ManagersReinbursement.jsp" method="post">
+<input type="submit" value="reinburse"/>
+</form>
 </body>
 </html>

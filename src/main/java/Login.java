@@ -26,7 +26,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     System.out.println(attempt.getUsername() + " : " + attempt.getPassword());
           if(attempt.getEmpName() != null) {
         	  if(attempt.getPosition().equalsIgnoreCase("employee")) {
-        		  RequestDispatcher rd=request.getRequestDispatcher("servlet2");  
+        		  RequestDispatcher rd=request.getRequestDispatcher("/Employee.jsp");  
                   rd.forward(request, response);  
         	  }else if(attempt.getPosition().equalsIgnoreCase("manager")) {
         		  RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
