@@ -18,7 +18,7 @@ tr:hover{
 	<form action="Manager.jsp" method="post">
 		<input type="submit" value="back" />
 	</form>
-
+<form action="servlet2" method="post">
 	<table id="reinburse-table" class="table" onclick="handleClick(event);">
 		<thead>
 			<tr>
@@ -32,7 +32,6 @@ tr:hover{
 		
 		</tbody>
 	</table>
-	<form action="servlet2" method="post">
 		<input type="submit" value="Submit" />
 	</form>
 	
@@ -47,10 +46,17 @@ tr:hover{
 		var colnum = 0;
 		data.forEach((row) => {
 			const tr = document.createElement("tr");
+			var input = document.createElement("input");
+			input.setAttribute("type","hidden");
+			input.setAttribute("name","id");
+			input.setAttribute("value",`${rownum}`)
+			tr.appendChild(input);
+			
 			row.forEach((val) => {
 				
 				const td = document.createElement("td");
 				td.textContent = val;
+				td.setAttribute("value",val);
 				if(colnum == 3){
 				if(val == "Pending"){
 					value = 0
@@ -60,6 +66,12 @@ tr:hover{
 					value=2
 				}
 				}
+				td.setAttribute("name","col"+`${rownum}`+`${colnum}`)
+				var va = document.createElement("input");
+				va.setAttribute("type","hidden");
+				va.setAttribute("name","id"+`${rownum}`+`${colnum}`);
+				va.setAttribute("value",`${val}`)
+				td.appendChild(va);
 				colnum = colnum+1;
 				tr.appendChild(td);
 				
@@ -71,10 +83,12 @@ tr:hover{
 			deny.innerHTML = "Deny"
 			accept.setAttribute("name","Accept")
 			deny.setAttribute("name","Deny")
+			accept.setAttribute("type","button")
+			deny.setAttribute("type","button")
 			tr.appendChild(accept);
 			tr.appendChild(deny);
 			
-			tr.setAttribute("id","foo" + `${rownum}`);
+			tr.setAttribute("name","foo"+`${rownum}`);
 			rownum=rownum+1;
 			if(value == 0){
 				tr.bgColor = "blue"
@@ -93,13 +107,17 @@ tr:hover{
 			console.log("accepted")
 			var tr = node.closest("tr")
 			var td = tr.getElementsByTagName("td")[3]
-			td.innerHTML = "Accepted"
+			td.children[0].setAttribute("value","Accepted")
+			td.setAttribute("value","Accepted")
+			//td.textContent = "Accepted"
 			node.closest("tr").bgColor = "Green"
 		}else if(node.name == 'Deny'){
 			console.log("Denied")
 			var tr = node.closest("tr")
 			var td = tr.getElementsByTagName("td")[3]
-			td.innerHTML = "Denied"
+			td.children[0].setAttribute("value","Denied")
+			td.setAttribute("value","Denied")
+			//td.textContent = "Denied"
 			node.closest("tr").bgColor = "Red"
 	}
 	}

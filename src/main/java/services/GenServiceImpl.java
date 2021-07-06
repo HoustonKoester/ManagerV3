@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 import models.Address;
 import com.ConnectionUtil;
 
@@ -47,4 +49,44 @@ public class GenServiceImpl implements GenService{
 		return emp;
 	}
 
+
+	@Override
+	public void updateDatabase(ArrayList<String> information) {
+		// TODO Auto-generated method stub
+		String QUERY2 = "insert into REIM values(?,?,?,?)";
+		String QUERY1 = "truncate table REIM";
+		Employee emp = new Employee();
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
+	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
+	    	stmt1.execute();
+	    	int row = 0;
+	    	
+	    	for(int i=0; i < information.size(); i=i+4) {
+
+	    			int empid = Integer.parseInt(information.get(i));
+					stmt2.setInt(1, empid);
+
+	    			String empname = information.get(i+1);
+					stmt2.setString(2, empname);
+
+	    			int amount = Integer.parseInt(information.get(i+2));
+					stmt2.setInt(3, amount);
+
+	    			String status = information.get(i+3);
+					stmt2.setString(4, status);
+					
+	    		
+	    	
+	    	System.out.println("made it here");
+	    	stmt2.executeUpdate();
+	    	}
+	      
+	}catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	}
+	
 }
