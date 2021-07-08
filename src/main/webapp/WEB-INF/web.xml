@@ -28,7 +28,10 @@
   	<servlet-name>PendingEmployee</servlet-name>
   	<servlet-class>PendingEmployee</servlet-class>
   </servlet>
-  
+  <servlet>
+  	<servlet-name>LoadPending</servlet-name>
+  	<servlet-class>LoadPending</servlet-class>
+  </servlet>
   
   <servlet-mapping>  
     <servlet-name>Login</servlet-name>  
@@ -53,6 +56,10 @@
   <servlet-mapping>
   	<servlet-name>PendingEmployee</servlet-name>
   	<url-pattern>/servlet6</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoadPending</servlet-name>
+  	<url-pattern>/servlet7</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>  

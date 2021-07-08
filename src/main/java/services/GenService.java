@@ -12,5 +12,5 @@ public int genNewUserID();
 public boolean addNewUser(int id, String name, String password, String empname, String empcity, String empstate, String position, String email);
 public boolean addPendingEmployee(ArrayList<String> information);
 public boolean deletePendingEmployee(ArrayList<String> information);
-public Employee getActiveEmployee();
+public boolean getActiveEmployee(String username, String password);
 }

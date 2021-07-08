@@ -139,15 +139,19 @@ public class GenServiceImpl implements GenService{
   		ResultSet rs2 = stmt2.executeQuery();
   		  rs.next();
   		  rs2.next();
+  		  try {
   		  if(rs.getInt("ID") > rs2.getInt("ID")) {
   			 newID = rs.getInt("ID") + 1;
   		  }else {
   			newID = rs2.getInt("ID") + 1;
   		  }
-	      
+  		  }finally {
+  			newID = rs.getInt("ID") + 1;
+  		  }
   		  
 	    } catch (SQLException e) {
-	      e.printStackTrace();
+	     // e.printStackTrace();
+	      
 	    }
 		return newID;
 	}
@@ -265,9 +269,47 @@ public class GenServiceImpl implements GenService{
 
 
 	@Override
-	public Employee getActiveEmployee() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean getActiveEmployee(String username, String password) {
+		String QUERY = "select * from emp where USERNAME=? and PASSWORD=?";
+		String QUERY2 = "insert into active values(?,?,?,?,?,?,?,?,?)";
+		String QUERY3 = "truncate table active";
+		Employee emp = new Employee();
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt = con.prepareStatement(QUERY);
+	    	PreparedStatement stmt2 = con.prepareStatement(QUERY2);
+	    	PreparedStatement stmt3 = con.prepareStatement(QUERY3);) {
+	    	//stmt.setInt(1, 1);
+	      stmt.setString(1, username);
+  		  stmt.setString(2, password);
+  		  ResultSet rs = stmt.executeQuery();
+  		  stmt3.execute();
+  		  System.out.println("trial");
+	        while(rs.next()) {
+	        	stmt2.setInt(1, rs.getInt("ID"));
+				
+				stmt2.setString(2, rs.getString("username"));
+
+				stmt2.setString(3, rs.getString("password"));
+
+				stmt2.setString(4, rs.getString("empname"));
+				
+				stmt2.setString(5, rs.getString("empcity"));
+
+				stmt2.setString(6,  rs.getString("empstate"));
+				
+				stmt2.setString(7,  rs.getString("position"));
+		
+				stmt2.setString(8,  rs.getString("email"));
+
+				stmt2.setString(9,  rs.getString("valid"));
+	        	stmt2.executeUpdate();
+	        }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+		return true;
 	}
 	
 }

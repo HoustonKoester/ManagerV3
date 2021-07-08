@@ -14,7 +14,7 @@ This is some text for managers <br>
 <input type="submit" value="reinburse"/>
 </form>
 
-<form action="NewEmployee.jsp" method="post">
+<form action="servlet7" method="post">
 <input type="submit" value="Pending Employees"/>
 </form>
 

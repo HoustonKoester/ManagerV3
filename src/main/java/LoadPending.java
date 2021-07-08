@@ -3,13 +3,11 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,20 +18,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ConnectionUtil;
 
-import models.Address;
 import models.Employee;
 
 /**
- * Servlet implementation class ManagerServlet
+ * Servlet implementation class LoadPending
  */
-@WebServlet("/ManagerServlet")
-public class ManagerServlet extends HttpServlet {
+@WebServlet("/LoadPending")
+public class LoadPending extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerServlet() {
+    public LoadPending() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,9 +40,7 @@ public class ManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Timed out").append(request.getContextPath());
-		RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
-        rd.forward(request, response);  
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -53,13 +48,12 @@ public class ManagerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(getServletContext().getRealPath("reinburse.json"));
-		File myFoo = new File(getServletContext().getRealPath("reinburse.json"));
+		File myFoo = new File(getServletContext().getRealPath("pending.json"));
 		FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
 		               System.out.println("this working?");                                      // false to overwrite.
 		fooWriter.write("[\n");
 		
-		String QUERY = "select * from reim";
+		String QUERY = "select * from pending";
 		Employee emp = new Employee();
 		ArrayList<String> result = new ArrayList<String>();
 		int a = 0;
@@ -69,7 +63,7 @@ public class ManagerServlet extends HttpServlet {
 	    	
   		  ResultSet rs = stmt.executeQuery();
 	        while(rs.next()) {
-	        	result.add("["+rs.getInt("ID")+","+"\""+rs.getString("empname")+"\""+","+rs.getInt("amount")+","+"\""+rs.getString("status")+"\""+"]");
+	        	result.add("["+rs.getInt("ID")+","+"\""+rs.getString("username")+"\""+","+"\""+rs.getString("password")+"\""+","+"\""+rs.getString("empname")+"\""+","+"\""+rs.getString("empcity")+"\""+","+"\""+rs.getString("empstate")+"\""+","+"\""+rs.getString("email")+"\""+","+"\""+rs.getString("position")+"\""+"]");
 	        	
 	        }
 	    } catch (SQLException e) {
@@ -82,21 +76,14 @@ public class ManagerServlet extends HttpServlet {
 	    fooWriter.write(result.get(a));
 	    fooWriter.write("\n]");
 		fooWriter.close();
-		RequestDispatcher rd=request.getRequestDispatcher("/ManagersReinbursement.jsp");  
-        rd.include(request, response);  
-	    }catch(IOException v) {
-	    	RequestDispatcher rd=request.getRequestDispatcher("/ManagersReinbursement.jsp");  
-	        rd.include(request, response); 
+		RequestDispatcher rd=request.getRequestDispatcher("/NewEmployee.jsp");  
+        rd.forward(request, response);  
 	    }finally {
-	    	RequestDispatcher rd=request.getRequestDispatcher("/ManagersReinbursement.jsp");  
-	        rd.include(request, response); 
+	    	RequestDispatcher rd=request.getRequestDispatcher("/NewEmployee.jsp");  
+	        rd.forward(request, response);  
 	        fooWriter.close();
 	    }
-//		 response.setContentType("text/html");  
-//		    PrintWriter out = response.getWriter();  
-//		          
-//		    String n=request.getParameter("userName");  
-//		    out.print("Welcome Manager "+n);  
+	    
 	}
 
 }

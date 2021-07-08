@@ -56,6 +56,7 @@ public class PendingEmployee extends HttpServlet {
 		    int i = 0;
 		    for(String ids: td) {
 		    	String decision = request.getParameter("decision"+ids);
+		    	System.out.println(decision);
 		    	if(decision.equals("Accepted")) {
 		    	for(String column: col) {
 		    		String val = request.getParameter("id"+ids+column);

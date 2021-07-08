@@ -24,9 +24,11 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     Employee attempt = gen.loginAttempt(n,p);
           if(attempt.getEmpName() != null) {
         	  if(attempt.getPosition().equalsIgnoreCase("employee")) {
+        		  gen.getActiveEmployee(n, p);
         		  RequestDispatcher rd=request.getRequestDispatcher("/Employee.jsp");  
                   rd.forward(request, response);  
         	  }else if(attempt.getPosition().equalsIgnoreCase("manager")) {
+        		  gen.getActiveEmployee(n, p);
         		  RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
                   rd.forward(request, response);  
         	  }
