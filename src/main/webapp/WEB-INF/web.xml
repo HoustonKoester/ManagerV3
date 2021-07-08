@@ -16,6 +16,18 @@
     <servlet-name>ManagerServlet</servlet-name>  
     <servlet-class>ManagerServlet</servlet-class>  
   </servlet> 
+  <servlet>  
+    <servlet-name>EmployeeReim</servlet-name>  
+    <servlet-class>EmployeeReim</servlet-class>  
+  </servlet> 
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>RegisterServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>PendingEmployee</servlet-name>
+  	<servlet-class>PendingEmployee</servlet-class>
+  </servlet>
   
   
   <servlet-mapping>  
@@ -30,6 +42,18 @@
     <servlet-name>ManagerServlet</servlet-name>  
     <url-pattern>/servlet3</url-pattern>  
   </servlet-mapping>  
+  <servlet-mapping>
+  	<servlet-name>EmployeeReim</servlet-name>
+  	<url-pattern>/servlet4</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/servlet5</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PendingEmployee</servlet-name>
+  	<url-pattern>/servlet6</url-pattern>
+  </servlet-mapping>
   
   <welcome-file-list>  
    <welcome-file>index.jsp</welcome-file>  

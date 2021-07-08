@@ -1,31 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1" http-equiv="refresh" content="20">
-<title>Reinbursments</title>
-<style type="text/css">
-tr{cursor: pointer; transition: all .25s ease-in-out}
-tr:hover{
-	background-color: #ffff99;
-}
-       .selected{background-color: red; font-weight: bold; color: #fff;}
-</style>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Active reinbursement requests</h1>
-	<form action="Manager.jsp" method="post">
+<h1>Approve or delete any pending Employees</h1>
+<form action="Manager.jsp" method="post">
 		<input type="submit" value="back" />
 	</form>
-<form action="servlet2" method="post">
-	<table id="reinburse-table" class="table" onclick="handleClick(event);">
+<form action="servlet6" method="post">
+	<table id="employee-table" class="table" onclick="handleClick(event);">
 		<thead>
 			<tr>
 				<th>EmployeeId</th>
+				<th>UserName</th>
+				<th>Password</th>
 				<th>EmployeeName</th>
-				<th>Amount</th>
-				<th>Status</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Email</th>
+				<th>Position</th>
+				<th>Decision</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +32,6 @@ tr:hover{
 	</table>
 		<input type="submit" value="Submit" />
 	</form>
-	
 	<script type="text/javascript">
 	setTimeout(function(){
 		if(window.location.hash != '#r'){
@@ -44,10 +41,10 @@ tr:hover{
 	}, 3000);
 	
 	
-	const reinburseBody = document.querySelector("#reinburse-table > tbody")
-	fetch("reinburse.json").then(response => response.json()).then(data => {
-		while(reinburseBody.firstChild){
-			reinburseBody.removeChild(reinburseBody.firstChild);
+	const employeeBody = document.querySelector("#employee-table > tbody")
+	fetch("pending.json").then(response => response.json()).then(data => {
+		while(employeeBody.firstChild){
+			employeeBody.removeChild(employeeBody.firstChild);
 		}
 		var value = 0;
 		var rownum = 0;
@@ -65,15 +62,6 @@ tr:hover{
 				const td = document.createElement("td");
 				td.textContent = val;
 				td.setAttribute("value",val);
-				if(colnum == 3){
-				if(val == "Pending"){
-					value = 0
-				}else if(val == "Accepted"){
-					value=1
-				}else if(val == "Denied"){
-					value=2
-				}
-				}
 				td.setAttribute("name","col"+`${rownum}`+`${colnum}`)
 				var va = document.createElement("input");
 				va.setAttribute("type","hidden");
@@ -85,27 +73,31 @@ tr:hover{
 				
 			});
 			colnum = 0;
+			const td = document.createElement("td");
+			td.textContent = "blank";
+			td.setAttribute("value","blank");
+			td.setAttribute("name","decision"+`${rownum}`)
+			tr.appendChild(td);
+			var va = document.createElement("input");
+			va.setAttribute("type","hidden");
+			va.setAttribute("name","decision"+`${rownum}`);
+			va.setAttribute("value","")
+			td.appendChild(va);
 			var accept = document.createElement("button");
-			var deny = document.createElement("button");
+			var Delete = document.createElement("button");
 			accept.innerHTML = "Accept"
-			deny.innerHTML = "Deny"
+			Delete.innerHTML = "Delete"
 			accept.setAttribute("name","Accept")
-			deny.setAttribute("name","Deny")
+			Delete.setAttribute("name","Delete")
 			accept.setAttribute("type","button")
-			deny.setAttribute("type","button")
+			Delete.setAttribute("type","button")
 			tr.appendChild(accept);
-			tr.appendChild(deny);
+			tr.appendChild(Delete);
 			
 			tr.setAttribute("name","foo"+`${rownum}`);
 			rownum=rownum+1;
-			if(value == 0){
-				tr.bgColor = "blue"
-			}else if(value == 1){
-				tr.bgColor = "green"
-			}else if(value == 2){
-				tr.bgColor = "red"
-			}
-			reinburseBody.appendChild(tr);
+
+			employeeBody.appendChild(tr);
 		});
 	})
 	
@@ -114,17 +106,17 @@ tr:hover{
 		if (node.name == 'Accept'){
 			console.log("accepted")
 			var tr = node.closest("tr")
-			var td = tr.getElementsByTagName("td")[3]
+			var td = tr.getElementsByTagName("td")[8]
 			td.children[0].setAttribute("value","Accepted")
 			td.setAttribute("value","Accepted")
 			//td.textContent = "Accepted"
 			node.closest("tr").bgColor = "Green"
-		}else if(node.name == 'Deny'){
-			console.log("Denied")
+		}else if(node.name == 'Delete'){
+			console.log("Delete")
 			var tr = node.closest("tr")
-			var td = tr.getElementsByTagName("td")[3]
-			td.children[0].setAttribute("value","Denied")
-			td.setAttribute("value","Denied")
+			var td = tr.getElementsByTagName("td")[8]
+			td.children[0].setAttribute("value","Delete")
+			td.setAttribute("value","Delete")
 			//td.textContent = "Denied"
 			node.closest("tr").bgColor = "Red"
 	}

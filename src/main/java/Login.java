@@ -15,7 +15,6 @@ public class Login extends HttpServlet {
 
 public void doPost(HttpServletRequest request, HttpServletResponse response)  
         throws ServletException, IOException {  
-	Employee dad = new Employee("Glenn", "dad", 1, "Glenn", new Address("Chino Valley","Arizona"), "manager");
     response.setContentType("text/html");  
     PrintWriter out = response.getWriter();  
           
@@ -23,7 +22,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     String p=request.getParameter("userPass");  
     GenServiceImpl gen = new GenServiceImpl();
     Employee attempt = gen.loginAttempt(n,p);
-    System.out.println(attempt.getUsername() + " : " + attempt.getPassword());
           if(attempt.getEmpName() != null) {
         	  if(attempt.getPosition().equalsIgnoreCase("employee")) {
         		  RequestDispatcher rd=request.getRequestDispatcher("/Employee.jsp");  

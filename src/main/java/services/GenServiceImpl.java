@@ -37,10 +37,10 @@ public class GenServiceImpl implements GenService{
 	        emp.setEmpName(rs.getString("empname"));
 	        emp.setPosition(rs.getString("position"));
 	       // emp.setSalary(rs.getDouble("salary"));
-	        Address addr = new Address();
-	        addr.setCity(rs.getString("city"));
-	        addr.setState(rs.getString("state"));
-	        emp.setAddress(addr);
+//	        Address addr = new Address();
+//	        addr.setCity(rs.getString("city"));
+//	        addr.setState(rs.getString("state"));
+//	        emp.setAddress(addr);
 	       // employ.add(emp);
 	        }
 	    } catch (SQLException e) {
@@ -51,7 +51,7 @@ public class GenServiceImpl implements GenService{
 
 
 	@Override
-	public void updateDatabase(ArrayList<String> information) {
+	public boolean updateDatabase(ArrayList<String> information) {
 		// TODO Auto-generated method stub
 		String QUERY2 = "insert into REIM values(?,?,?,?)";
 		String QUERY1 = "truncate table REIM";
@@ -85,8 +85,189 @@ public class GenServiceImpl implements GenService{
 	      
 	}catch (SQLException e) {
 	      e.printStackTrace();
+	      return false;
 	    }
+	    return true;
+	}
 
+
+	@Override
+	public boolean insertReim(String id, String name, String amounts) {
+		// TODO Auto-generated method stub
+		String QUERY2 = "insert into REIM values(?,?,?,?)";
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
+	    	
+
+	    			int empid = Integer.parseInt(id);
+					stmt2.setInt(1, empid);
+
+	    			String empname = name;
+					stmt2.setString(2, empname);
+
+	    			int amount = Integer.parseInt(amounts);
+					stmt2.setInt(3, amount);
+
+	    			String status = "Pending";
+					stmt2.setString(4, status);
+					
+	    		
+	    	
+	    	//System.out.println("made it here");
+	    	stmt2.executeUpdate();
+	    	
+	      
+	}catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+	    return true;
+	}
+
+
+	@Override
+	public int genNewUserID() {
+		int newID = 0;
+		String QUERY = "select * from emp order by ID desc";
+		String QUERY2 = "select * from pending order by ID desc";
+			    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt = con.prepareStatement(QUERY);
+			PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
+
+  		  ResultSet rs = stmt.executeQuery();
+  		ResultSet rs2 = stmt2.executeQuery();
+  		  rs.next();
+  		  rs2.next();
+  		  if(rs.getInt("ID") > rs2.getInt("ID")) {
+  			 newID = rs.getInt("ID") + 1;
+  		  }else {
+  			newID = rs2.getInt("ID") + 1;
+  		  }
+	      
+  		  
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+		return newID;
+	}
+
+
+	@Override
+	public boolean addNewUser(int id, String name, String password, String empname, String empcity, String empstate,
+			String position, String email) {
+		String QUERY2 = "insert into PENDING values(?,?,?,?,?,?,?,?,?)";
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
+					stmt2.setInt(1, id);
+					stmt2.setString(2, name);
+					stmt2.setString(3, password);
+					stmt2.setString(4, empname);
+					stmt2.setString(5, empcity);
+					stmt2.setString(6, empstate);
+					stmt2.setString(7, position);
+					stmt2.setString(8, email);
+					stmt2.setString(9, "invalid");
+	    		
+	    	
+	    	//System.out.println("made it here");
+	    	stmt2.executeUpdate();
+	    	
+	      
+	}catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+	    return true;
+	}
+
+
+	@Override
+	public boolean addPendingEmployee(ArrayList<String> information) {
+		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
+		String QUERY1 = "delete from pending where ID = ?";
+		Employee emp = new Employee();
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
+	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
+	    	//stmt1.execute();
+	    	int row = 0;
+	    	
+	    	for(int i=0; i < information.size(); i=i+8) {
+	    			
+	    			int empid = Integer.parseInt(information.get(i));
+	    			System.out.println("made it to emp:" + empid);
+					stmt2.setInt(1, empid);
+					stmt1.setInt(1, empid);
+					
+	    			String username = information.get(i+1);
+					stmt2.setString(2, username);
+
+	    			String password = information.get(i+2);
+					stmt2.setString(3, password);
+
+	    			String empname = information.get(i+3);
+					stmt2.setString(4, empname);
+					
+					String empcity = information.get(i+4);
+					stmt2.setString(5, empcity);
+
+	    			String empstate = information.get(i+5);
+					stmt2.setString(6, empstate);
+					
+					
+	    			String position = information.get(i+7);
+	    			System.out.println(position);
+					stmt2.setString(7, position);
+					
+					String email = information.get(i+6);
+					stmt2.setString(8, email);
+
+	    			String amount = "valid";
+					stmt2.setString(9, amount);
+
+	    	System.out.println("made it here");
+	    	stmt2.executeUpdate();
+	    	stmt1.executeUpdate();
+	    	}
+	      
+	}catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+	    return true;
+	}
+
+
+	@Override
+	public boolean deletePendingEmployee(ArrayList<String> information) {
+		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
+		String QUERY1 = "delete from pending where ID = ?";
+		
+		
+	    try (Connection con = ConnectionUtil.getConnection();
+	    		PreparedStatement stmt1 = con.prepareStatement(QUERY1);
+	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
+	    	for(int i=0; i < information.size(); i=i+8) {
+
+    			int empid = Integer.parseInt(information.get(i));
+				stmt1.setInt(1, empid);
+				stmt1.executeUpdate();
+	    	}    
+	}catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+	    return true;
+	}
+
+
+	@Override
+	public Employee getActiveEmployee() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

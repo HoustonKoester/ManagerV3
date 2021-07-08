@@ -35,6 +35,8 @@ public class WelcomeServlet extends HttpServlet {
 //		    	System.out.println( information.get(t));
 //		    }
 		    gen.updateDatabase(information);
+		    RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
+	        rd.include(request, response);  
 		    //for(String id: td) {
 		    	//String trial = request.getParameter("id03");
 		    	//System.out.println(trial);
