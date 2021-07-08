@@ -13,4 +13,5 @@ public boolean addNewUser(int id, String name, String password, String empname, 
 public boolean addPendingEmployee(ArrayList<String> information);
 public boolean deletePendingEmployee(ArrayList<String> information);
 public boolean getActiveEmployee(String username, String password);
+public boolean updateEmp(ArrayList<String> information);
 }

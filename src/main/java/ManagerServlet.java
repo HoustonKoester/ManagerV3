@@ -89,7 +89,7 @@ public class ManagerServlet extends HttpServlet {
 	        rd.include(request, response); 
 	    }finally {
 	    	RequestDispatcher rd=request.getRequestDispatcher("/ManagersReinbursement.jsp");  
-	        rd.include(request, response); 
+	        rd.forward(request, response); 
 	        fooWriter.close();
 	    }
 //		 response.setContentType("text/html");  

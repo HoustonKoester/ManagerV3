@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import services.GenServiceImpl;
 
 /**
- * Servlet implementation class PendingEmployee
+ * Servlet implementation class UpdateEmp
  */
-@WebServlet("/PendingEmployee")
-public class PendingEmployee extends HttpServlet {
+@WebServlet("/UpdateEmp")
+public class UpdateEmp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PendingEmployee() {
+    public UpdateEmp() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,38 +48,21 @@ public class PendingEmployee extends HttpServlet {
 		    
 		    String td[] = request.getParameterValues("id");
 		    ArrayList<String> information = new ArrayList<String>();
-		    ArrayList<String> delete = new ArrayList<String>();
-		    ArrayList<String> accept = new ArrayList<String>();
-		    
-		    
 		    String[] col = {"0","1","2","3","4","5","6","7"};
 		    int i = 0;
 		    for(String ids: td) {
-		    	String decision = request.getParameter("decision"+ids);
-		    	System.out.println(decision);
-		    	if(decision.equals("Accepted")) {
 		    	for(String column: col) {
 		    		String val = request.getParameter("id"+ids+column);
-		    		accept.add(val);
+		    		System.out.println(val);
+				    information.add(val);
 				    i++;
-				   
 		    	}
-		    	}else if(decision.equals("Delete")){
-		    		for(String column: col) {
-			    		String val = request.getParameter("id"+ids+column);
-			    		delete.add(val);
-					    i++;
-					    
-			    	}
-		    	}
-		    }
-		    System.out.println(delete);
-	    	System.out.println(accept);
-	    	gen.addPendingEmployee(accept);
-	    	gen.deletePendingEmployee(delete);
-	    	//gen.addPendingEmployee(i, getServletName(), getServletInfo(), getServletInfo(), getServletInfo(), getServletInfo(), getServletName(), getServletInfo())
-		    //gen.updateDatabase(information);
-		    RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
+		    }  
+		    
+		  //  gen.updateDatabase(information);
+		    gen.updateEmp(information);
+		    out.print("<h1>Information updated! Login with new information to continue.</h1>");  
+		    RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");  
 	        rd.include(request, response);  
 	}
 

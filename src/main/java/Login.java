@@ -1,6 +1,8 @@
 //package proj;
 
-import java.io.*;  
+import java.io.*;
+import java.util.ArrayList;
+
 import javax.servlet.*;  
 import javax.servlet.http.*;
 
@@ -24,11 +26,32 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     Employee attempt = gen.loginAttempt(n,p);
           if(attempt.getEmpName() != null) {
         	  if(attempt.getPosition().equalsIgnoreCase("employee")) {
-        		  gen.getActiveEmployee(n, p);
+        		 // gen.getActiveEmployee(n, p);
+        		 // System.out.println(getServletContext().getRealPath("active.json"));
+        		  File myFoo = new File(getServletContext().getRealPath("active.json"));
+        			FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
+        			               System.out.println("this working?");                                      // false to overwrite.
+        			fooWriter.write("[\n");
+        			ArrayList<String> result = new ArrayList<String>();
+        			result.add("["+attempt.getEmpNo()+","+"\""+attempt.getUsername()+"\""+","+"\""+attempt.getPassword()+"\""+","+"\""+attempt.getEmpName()+"\""+","+"\""+attempt.getAddress().getCity()+"\""+","+"\""+attempt.getAddress().getState()+"\""+","+"\""+"Houstonkoester@aol.com"+"\""+","+"\""+attempt.getPosition()+"\""+"]");
+    	        	fooWriter.write(result.get(0));
+        			fooWriter.write("\n]");
+        			fooWriter.close();
+        		  
+        		  
         		  RequestDispatcher rd=request.getRequestDispatcher("/Employee.jsp");  
                   rd.forward(request, response);  
         	  }else if(attempt.getPosition().equalsIgnoreCase("manager")) {
-        		  gen.getActiveEmployee(n, p);
+        		  File myFoo = new File(getServletContext().getRealPath("active.json"));
+      			FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
+      			               System.out.println("this working?");                                      // false to overwrite.
+      			fooWriter.write("[\n");
+      			ArrayList<String> result = new ArrayList<String>();
+      			result.add("["+attempt.getEmpNo()+","+"\""+attempt.getUsername()+"\""+","+"\""+attempt.getPassword()+"\""+","+"\""+attempt.getEmpName()+"\""+","+"\""+attempt.getAddress().getCity()+"\""+","+"\""+attempt.getAddress().getState()+"\""+","+"\""+attempt.getEmail()+"\""+","+"\""+attempt.getPosition()+"\""+"]");
+  	        	fooWriter.write(result.get(0));
+      			fooWriter.write("\n]");
+      			fooWriter.close();
+        		//  gen.getActiveEmployee(n, p);
         		  RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
                   rd.forward(request, response);  
         	  }

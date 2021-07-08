@@ -15,7 +15,7 @@ public class Login extends HttpServlet {
 
 public void doPost(HttpServletRequest request, HttpServletResponse response)  
         throws ServletException, IOException {  
-	Employee dad = new Employee("Glenn", "dad", 1, "Glenn", new Address("Chino Valley","Arizona"), "manager");
+	Employee dad = new Employee("Glenn", "dad", 1, "Glenn", new Address("Chino Valley","Arizona"), "manager", null);
     response.setContentType("text/html");  
     PrintWriter out = response.getWriter();  
           

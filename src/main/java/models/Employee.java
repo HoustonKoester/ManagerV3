@@ -7,8 +7,17 @@ public class Employee {
 	private String empName;
 	private Address address;
 	private String position;
+	private String email;
 
-	public Employee(String username, String password, int empNo, String empName, Address address, String position) {
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Employee(String username, String password, int empNo, String empName, Address address, String position, String email) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -16,6 +25,7 @@ public class Employee {
 		this.empName = empName;
 		this.address = address;
 		this.position = position;
+		this.email = email;
 	}
 
 	public Employee() {

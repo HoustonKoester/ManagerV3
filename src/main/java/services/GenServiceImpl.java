@@ -36,12 +36,8 @@ public class GenServiceImpl implements GenService{
 	        emp.setEmpNo(rs.getInt("ID"));
 	        emp.setEmpName(rs.getString("empname"));
 	        emp.setPosition(rs.getString("position"));
-	       // emp.setSalary(rs.getDouble("salary"));
-//	        Address addr = new Address();
-//	        addr.setCity(rs.getString("city"));
-//	        addr.setState(rs.getString("state"));
-//	        emp.setAddress(addr);
-	       // employ.add(emp);
+	        emp.setAddress(new Address(rs.getString("empcity"),rs.getString("empstate")));
+	        emp.setEmail(rs.getString("email"));
 	        }
 	    } catch (SQLException e) {
 	      e.printStackTrace();
@@ -142,11 +138,11 @@ public class GenServiceImpl implements GenService{
   		  try {
   		  if(rs.getInt("ID") > rs2.getInt("ID")) {
   			 newID = rs.getInt("ID") + 1;
-  		  }else {
+  		  }else if(rs.getInt("ID") < rs2.getInt("ID")){
   			newID = rs2.getInt("ID") + 1;
   		  }
   		  }finally {
-  			newID = rs.getInt("ID") + 1;
+  		//	newID = rs.getInt("ID") + 1;
   		  }
   		  
 	    } catch (SQLException e) {
@@ -305,6 +301,32 @@ public class GenServiceImpl implements GenService{
 				stmt2.setString(9,  rs.getString("valid"));
 	        	stmt2.executeUpdate();
 	        }
+	    } catch (SQLException e) {
+	      e.printStackTrace();
+	      return false;
+	    }
+		return true;
+	}
+
+
+	@Override
+	public boolean updateEmp(ArrayList<String> information) {
+		String QUERY = "update emp set username=?,password=?,empname=?,empcity=?,empstate=?,email=? where ID =?";
+		Employee emp = new Employee();
+
+	    try (Connection con = ConnectionUtil.getConnection();
+	        PreparedStatement stmt = con.prepareStatement(QUERY);) {
+	    	//stmt.setInt(1, 1);
+
+	        	stmt.setString(1, information.get(1));
+	        	stmt.setString(2, information.get(2));
+	        	stmt.setString(3, information.get(3));
+	        	stmt.setString(4, information.get(4));
+	        	stmt.setString(5, information.get(5));
+	        	stmt.setString(6, information.get(6));
+	        	stmt.setString(7, information.get(0));
+	        
+	        	stmt.executeUpdate();
 	    } catch (SQLException e) {
 	      e.printStackTrace();
 	      return false;
