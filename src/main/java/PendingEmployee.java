@@ -75,8 +75,12 @@ public class PendingEmployee extends HttpServlet {
 		    }
 		    System.out.println(delete);
 	    	System.out.println(accept);
+	    	if(accept.size() != 0) {
 	    	gen.addPendingEmployee(accept);
+	    	}
+	    	if(delete.size() != 0) {
 	    	gen.deletePendingEmployee(delete);
+	    	}
 	    	//gen.addPendingEmployee(i, getServletName(), getServletInfo(), getServletInfo(), getServletInfo(), getServletInfo(), getServletName(), getServletInfo())
 		    //gen.updateDatabase(information);
 		    RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  

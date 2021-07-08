@@ -10,7 +10,7 @@
 <h1>Fill out the form below</h1>
 <form action="servlet5" method="post">  
 Name:<input type="text" name="userName" required/><br/>  
-Email:<input type="text" name="Email"required/><br/>  
+Email:<input type="email" name="Email"required/><br/>  
 Password:<input type="password" name="userPass"required/><br/>  
 Confirm Password:<input type="password" name="userPassConfirm"required/><br/>  
 City:<input type="text" name="City"/><br/>  

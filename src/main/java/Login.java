@@ -33,7 +33,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
         			               System.out.println("this working?");                                      // false to overwrite.
         			fooWriter.write("[\n");
         			ArrayList<String> result = new ArrayList<String>();
-        			result.add("["+attempt.getEmpNo()+","+"\""+attempt.getUsername()+"\""+","+"\""+attempt.getPassword()+"\""+","+"\""+attempt.getEmpName()+"\""+","+"\""+attempt.getAddress().getCity()+"\""+","+"\""+attempt.getAddress().getState()+"\""+","+"\""+"Houstonkoester@aol.com"+"\""+","+"\""+attempt.getPosition()+"\""+"]");
+        			result.add("["+attempt.getEmpNo()+","+"\""+attempt.getUsername()+"\""+","+"\""+attempt.getPassword()+"\""+","+"\""+attempt.getEmpName()+"\""+","+"\""+attempt.getAddress().getCity()+"\""+","+"\""+attempt.getAddress().getState()+"\""+","+"\""+attempt.getEmail()+"\""+","+"\""+attempt.getPosition()+"\""+"]");
     	        	fooWriter.write(result.get(0));
         			fooWriter.write("\n]");
         			fooWriter.close();
@@ -56,8 +56,8 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
                   rd.forward(request, response);  
         	  }
           } else{  
-              out.print("Sorry UserName or Password Error!");  
-              RequestDispatcher rd=request.getRequestDispatcher("/index.html");  
+              out.print("<h1>Sorry UserName or Password Error!</h1>");  
+              RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");  
               rd.include(request, response);  
                             
               }  

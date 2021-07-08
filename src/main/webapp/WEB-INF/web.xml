@@ -36,6 +36,10 @@
   	<servlet-name>UpdateEmp</servlet-name>
   	<servlet-class>UpdateEmp</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>ViewAll</servlet-name>
+  	<servlet-class>ViewAll</servlet-class>
+  </servlet>
   
   <servlet-mapping>  
     <servlet-name>Login</servlet-name>  
@@ -68,6 +72,10 @@
   <servlet-mapping>
   	<servlet-name>UpdateEmp</servlet-name>
   	<url-pattern>/servlet8</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ViewAll</servlet-name>
+  	<url-pattern>/servlet9</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>  

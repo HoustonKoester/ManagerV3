@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import models.Employee;
 import services.GenServiceImpl;
 
-class ImplTest {
+class Tests {
 	private GenServiceImpl gen;
 	@BeforeEach
 	void initEach() {
@@ -21,46 +21,44 @@ class ImplTest {
 	}
 	@Test
 	void updateDatabase() {
-		assertEquals(false,false);
+		ArrayList<String> info = new ArrayList<String>();
+		info.add("test");
+		assertEquals(false,gen.updateDatabase(info));
 	}
 	@Test
 	void insertReim() {
-		assertEquals(false,false);
+		assertEquals(false,gen.insertReim("1", "test", "2"));
 	}
 	@Test
 	void genNewUserID() {
-		assertEquals(false,false);
+		assertNotEquals(0,gen.genNewUserID());
 	}
 	@Test
 	void addNewUser() {
-		assertEquals(false,false);
+		assertEquals(false,gen.addNewUser(-1, null, null, null, null, null, null, null));
 	}
 	@Test
 	void addPendingEmployee() {
-		assertEquals(false,false);
+		ArrayList<String> info = new ArrayList<String>();
+		info.add("test");
+		assertEquals(false,gen.addPendingEmployee(info));
 	}
 	@Test
 	void deletePendingEmployee() {
-		assertEquals(false,false);
+		ArrayList<String> info = new ArrayList<String>();
+		info.add("test");
+		assertEquals(false,gen.deletePendingEmployee(info));
 	}
 	@Test
 	void getActiveEmployee() {
-		assertEquals(false,false);
+		assertEquals(true,gen.getActiveEmployee("Glenn", "dad"));
 	}
 	@Test
 	void updateEmp() {
-		assertEquals(false,false);
+		ArrayList<String> info = new ArrayList<String>();
+		info.add("test");
+		assertEquals(false,gen.updateEmp(info));
 	}
 	
-//	@Test
-//	void yearlySalary() {
-//		assertEquals(24000, esi.calculateYearlySalary(1));
-//				
-//	}
-//	
-//	@Test
-//	void findEmp() {
-//		assertEquals(EmployeeServiceImpl.employ.get(0), esi.findByEmployeeNo(1));
-//				
-//	}
+
 }

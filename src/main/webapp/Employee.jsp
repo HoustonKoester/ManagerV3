@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Managers</title>
+<title>Employee</title>
 </head>
 <header><a href="index.jsp">Logout</a></header>
 <body>
-This is some text for Employees <br>
+ <br>
 <img alt="rand" src="https://content.timesjobs.com/img/62855069/Master.jpg">
 <form action="reimForm.jsp" method="post">
 <input type="submit" value="reinburse"/>

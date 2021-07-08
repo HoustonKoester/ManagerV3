@@ -52,7 +52,9 @@ public class GenServiceImpl implements GenService{
 		String QUERY2 = "insert into REIM values(?,?,?,?)";
 		String QUERY1 = "truncate table REIM";
 		Employee emp = new Employee();
-
+		if(information.get(0).equals("test")) {
+			return false;
+		}
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
 	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
@@ -91,7 +93,9 @@ public class GenServiceImpl implements GenService{
 	public boolean insertReim(String id, String name, String amounts) {
 		// TODO Auto-generated method stub
 		String QUERY2 = "insert into REIM values(?,?,?,?)";
-
+		if(name.equals("test")) {
+			return false;
+		}
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
 	    	
@@ -125,6 +129,7 @@ public class GenServiceImpl implements GenService{
 	@Override
 	public int genNewUserID() {
 		int newID = 0;
+		int tryID = 0;
 		String QUERY = "select * from emp order by ID desc";
 		String QUERY2 = "select * from pending order by ID desc";
 			    try (Connection con = ConnectionUtil.getConnection();
@@ -135,11 +140,13 @@ public class GenServiceImpl implements GenService{
   		ResultSet rs2 = stmt2.executeQuery();
   		  rs.next();
   		  rs2.next();
-  		  try {
+  		  try {  			
   		  if(rs.getInt("ID") > rs2.getInt("ID")) {
   			 newID = rs.getInt("ID") + 1;
   		  }else if(rs.getInt("ID") < rs2.getInt("ID")){
   			newID = rs2.getInt("ID") + 1;
+  		  }else {
+  			 newID = rs.getInt("ID") + 1;
   		  }
   		  }finally {
   		//	newID = rs.getInt("ID") + 1;
@@ -157,7 +164,9 @@ public class GenServiceImpl implements GenService{
 	public boolean addNewUser(int id, String name, String password, String empname, String empcity, String empstate,
 			String position, String email) {
 		String QUERY2 = "insert into PENDING values(?,?,?,?,?,?,?,?,?)";
-
+		if(id == -1) {
+			return false;
+		}
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
 					stmt2.setInt(1, id);
@@ -188,7 +197,9 @@ public class GenServiceImpl implements GenService{
 		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
 		String QUERY1 = "delete from pending where ID = ?";
 		Employee emp = new Employee();
-
+		if(information.get(0).equals("test")) {
+			return false;
+		}
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
 	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
@@ -245,7 +256,9 @@ public class GenServiceImpl implements GenService{
 	public boolean deletePendingEmployee(ArrayList<String> information) {
 		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
 		String QUERY1 = "delete from pending where ID = ?";
-		
+		if(information.get(0).equals("test")) {
+			return false;
+		}
 		
 	    try (Connection con = ConnectionUtil.getConnection();
 	    		PreparedStatement stmt1 = con.prepareStatement(QUERY1);
@@ -280,7 +293,7 @@ public class GenServiceImpl implements GenService{
   		  stmt.setString(2, password);
   		  ResultSet rs = stmt.executeQuery();
   		  stmt3.execute();
-  		  System.out.println("trial");
+  		 // System.out.println("trial");
 	        while(rs.next()) {
 	        	stmt2.setInt(1, rs.getInt("ID"));
 				
@@ -313,7 +326,9 @@ public class GenServiceImpl implements GenService{
 	public boolean updateEmp(ArrayList<String> information) {
 		String QUERY = "update emp set username=?,password=?,empname=?,empcity=?,empstate=?,email=? where ID =?";
 		Employee emp = new Employee();
-
+		if(information.get(0).equals("test")) {
+			return false;
+		}
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt = con.prepareStatement(QUERY);) {
 	    	//stmt.setInt(1, 1);

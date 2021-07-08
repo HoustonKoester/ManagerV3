@@ -8,7 +8,7 @@
 </head>
 <header><a href="index.jsp">Logout</a></header>
 <body>
-This is some text for managers <br>
+ <br>
 <img alt="rand" src="https://ak1.picdn.net/shutterstock/videos/2343311/thumb/1.jpg">
 <form action="servlet3" method="post">
 <input type="submit" value="reinburse"/>
@@ -16,6 +16,10 @@ This is some text for managers <br>
 
 <form action="servlet7" method="post">
 <input type="submit" value="Pending Employees"/>
+</form>
+
+<form action="servlet9" method="post">
+<input type="submit" value="View All Employees"/>
 </form>
 
 </body>
