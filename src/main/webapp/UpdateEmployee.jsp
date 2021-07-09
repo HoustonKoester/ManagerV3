@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Update</title>
 </head>
 <h1>Update information below</h1>
 <h3>Any form left blank will not be updated.</h3>

@@ -16,6 +16,8 @@
 <form action="UpdateEmployee.jsp" method="post">
 <input type="submit" value="Update Employee Information"/>
 </form>
-
+<form action="EmployeeReimburse.jsp" method="post">
+<input type="submit" value="Completed Reimbursements"/>
+</form>
 </body>
 </html>

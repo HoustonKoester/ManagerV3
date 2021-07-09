@@ -1,6 +1,6 @@
 <html>
 <header><h1>Login</h1></header>
-
+<title>Login</title>
 <form action="servlet1" method="post">  
 Name:<input type="text" name="userName"/><br/>  
 Password:<input type="password" name="userPass"/><br/>  

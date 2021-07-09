@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<title>Reimbursement Form</title>
 <h1>Fill in reimbursement information below.</h1>
 <br>
 <h4>Bug fix this and add in autofill for ID/Name</h4>

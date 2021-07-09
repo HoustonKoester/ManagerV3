@@ -1,24 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1" http-equiv="refresh" content="20">
-<title>Reimbursements</title>
-<style type="text/css">
-tr{cursor: pointer; transition: all .25s ease-in-out}
-tr:hover{
-	background-color: #ffff99;
-}
-       .selected{background-color: red; font-weight: bold; color: #fff;}
-</style>
+<meta charset="ISO-8859-1">
+<title>Completed Reimbursements</title>
 </head>
 <body>
-	<h1>Active reimbursement requests</h1>
-	<form action="Manager.jsp" method="post">
+	<h1>Completed reimbursement requests</h1>
+	<form action="Employee.jsp" method="post">
 		<input type="submit" value="back" />
 	</form>
-<form action="servlet2" method="post">
+
 	<table id="reinburse-table" class="table" onclick="handleClick(event);">
 		<thead>
 			<tr>
@@ -32,8 +25,8 @@ tr:hover{
 		
 		</tbody>
 	</table>
-		<input type="submit" value="Submit" />
-	</form>
+
+
 	
 	<script type="text/javascript">
 	setTimeout(function(){
@@ -85,16 +78,7 @@ tr:hover{
 				
 			});
 			colnum = 0;
-			var accept = document.createElement("button");
-			var deny = document.createElement("button");
-			accept.innerHTML = "Accept"
-			deny.innerHTML = "Deny"
-			accept.setAttribute("name","Accept")
-			deny.setAttribute("name","Deny")
-			accept.setAttribute("type","button")
-			deny.setAttribute("type","button")
-			tr.appendChild(accept);
-			tr.appendChild(deny);
+			
 			
 			tr.setAttribute("name","foo"+`${rownum}`);
 			rownum=rownum+1;
@@ -109,27 +93,8 @@ tr:hover{
 		});
 	})
 	
-	function handleClick(evt){
-		var node = evt.target || evt.srcElement;
-		if (node.name == 'Accept'){
-			console.log("accepted")
-			var tr = node.closest("tr")
-			var td = tr.getElementsByTagName("td")[3]
-			td.children[0].setAttribute("value","Accepted")
-			td.setAttribute("value","Accepted")
-			//td.textContent = "Accepted"
-			node.closest("tr").bgColor = "Green"
-		}else if(node.name == 'Deny'){
-			console.log("Denied")
-			var tr = node.closest("tr")
-			var td = tr.getElementsByTagName("td")[3]
-			td.children[0].setAttribute("value","Denied")
-			td.setAttribute("value","Denied")
-			//td.textContent = "Denied"
-			node.closest("tr").bgColor = "Red"
-	}
-	}
 
 </script>
+
 </body>
 </html>
