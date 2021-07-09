@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import java.security.Security;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
 import models.Address;
 import com.ConnectionUtil;
 
@@ -19,6 +25,54 @@ public class GenServiceImpl implements GenService{
 		this.empName = empName;
 		this.address = address;this is a comment
 		this.position = position;*/
+	public void sendSSLMessage(String recipients, String subject,
+	        String message, String from) throws MessagingException {
+	    boolean debug = true;
+
+	    Properties props = new Properties();
+	    props.put("mail.smtp.host", SMTP_HOST_NAME);
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.debug", "true");
+	    props.put("mail.smtp.port", SMTP_PORT);
+	    props.put("mail.smtp.socketFactory.port", SMTP_PORT);
+	    props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
+	    props.put("mail.smtp.socketFactory.fallback", "false");
+
+	    Session session = Session.getInstance(props,
+	            new javax.mail.Authenticator() 
+	             {
+	                 protected PasswordAuthentication                   
+
+	              getPasswordAuthentication() {
+	                    return new   
+	                 PasswordAuthentication("houstonkoester@aol.com", "wkmqsfgqatsdagsg");
+	                }
+	            });
+
+	    session.setDebug(debug);
+
+	    Message msg = new MimeMessage(session);
+	    InternetAddress addressFrom = new InternetAddress(from);
+	    msg.setFrom(addressFrom);
+
+	    InternetAddress[] addressTo = new InternetAddress[1];
+
+	        addressTo[0] = new InternetAddress(recipients);
+	    
+	    msg.setRecipients(Message.RecipientType.TO, addressTo);
+
+	    // Setting the Subject and Content Type
+	    msg.setSubject(subject);
+	    msg.setContent(message, "text/plain");
+	    Transport.send(msg);
+	   }
+	private static final String SMTP_HOST_NAME = "smtp.aol.com";
+	private static final String SMTP_PORT = "465";
+	private static String emailMsgTxt = "You've been added to the EmployeeManagement System!\n You may now login.";
+	private static final String emailSubjectTxt = "Added to EmployeeList";
+	private static final String emailFromAddress = "houstonkoester@aol.com";
+	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+	private static String sendTo = "null" ;
 	
 	public Employee loginAttempt(String username, String password) {
 		String QUERY = "select * from emp where USERNAME=? and PASSWORD=?";
@@ -200,6 +254,10 @@ public class GenServiceImpl implements GenService{
 		if(information.get(0).equals("test")) {
 			return false;
 		}
+	    	 // Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+
+
+		
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
 	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
@@ -207,7 +265,7 @@ public class GenServiceImpl implements GenService{
 	    	int row = 0;
 	    	
 	    	for(int i=0; i < information.size(); i=i+8) {
-	    			
+	    		
 	    			int empid = Integer.parseInt(information.get(i));
 	    			System.out.println("made it to emp:" + empid);
 					stmt2.setInt(1, empid);
@@ -238,8 +296,16 @@ public class GenServiceImpl implements GenService{
 
 	    			String amount = "valid";
 					stmt2.setString(9, amount);
-
-	    	System.out.println("made it here");
+					emailMsgTxt = "Welcome in " + empname + "\n\n" + "You've been added to the EmployeeManagement System!\n You may now login.\n\n" + "Username: " + username + "\nPassword: " + password;
+					try {
+						sendSSLMessage(email, emailSubjectTxt, emailMsgTxt,
+						        emailFromAddress);
+					} catch (MessagingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
 	    	stmt2.executeUpdate();
 	    	stmt1.executeUpdate();
 	    	}

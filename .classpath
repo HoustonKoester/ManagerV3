@@ -37,5 +37,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/houst/Downloads/javamail1_4_5.zip"/>
+	<classpathentry kind="lib" path="C:/Users/houst/Downloads/jaf-1_1_1.zip"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
