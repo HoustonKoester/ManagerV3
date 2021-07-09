@@ -60,7 +60,7 @@ public class RegisterServlet extends HttpServlet {
 		    
 		    //need to add to double check if user exists in main employee table too, but can worry about that later
 		    if(p.equals(p2)) {
-		    	gen.addNewUser(Id, n, p, p, city, state, position, email);
+		    	gen.addNewUser(Id, n, p, n, city, state, position, email);
 		    	out.print("<h1>Await manager approval</h1>");  
 		    	RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");  
 	              rd.include(request, response);  

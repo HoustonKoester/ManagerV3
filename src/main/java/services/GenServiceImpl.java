@@ -296,7 +296,7 @@ public class GenServiceImpl implements GenService{
 
 	    			String amount = "valid";
 					stmt2.setString(9, amount);
-					emailMsgTxt = "Welcome in " + empname + "\n\n" + "You've been added to the EmployeeManagement System!\n You may now login.\n\n" + "Username: " + username + "\nPassword: " + password;
+					emailMsgTxt = "Welcome in " + username + "\n\n" + "You've been added to the EmployeeManagement System!\n You may now login.\n\n" + "Username: " + username + "\nPassword: " + password;
 					try {
 						sendSSLMessage(email, emailSubjectTxt, emailMsgTxt,
 						        emailFromAddress);

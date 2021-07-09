@@ -11,7 +11,7 @@
  <br>
 <img alt="rand" src="https://content.timesjobs.com/img/62855069/Master.jpg">
 <form action="reimForm.jsp" method="post">
-<input type="submit" value="reinburse"/>
+<input type="submit" value="Submit Reimbursement Form"/>
 </form>
 <form action="UpdateEmployee.jsp" method="post">
 <input type="submit" value="Update Employee Information"/>

@@ -84,7 +84,7 @@ public class PendingEmployee extends HttpServlet {
 	    	//gen.addPendingEmployee(i, getServletName(), getServletInfo(), getServletInfo(), getServletInfo(), getServletInfo(), getServletName(), getServletInfo())
 		    //gen.updateDatabase(information);
 		    RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
-	        rd.include(request, response);  
+	        rd.forward(request, response);  
 	}
 
 }

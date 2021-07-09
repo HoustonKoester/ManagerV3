@@ -14,7 +14,7 @@ tr:hover{
 </style>
 </head>
 <body>
-	<h1>Active reinbursement requests</h1>
+	<h1>Active reimbursement requests</h1>
 	<form action="Manager.jsp" method="post">
 		<input type="submit" value="back" />
 	</form>

@@ -38,7 +38,7 @@
 			window.location.hash = 'r';
 		window.location.reload(1);
 		}
-	}, 3000);
+	}, 3500);
 	
 	
 	const employeeBody = document.querySelector("#employee-table > tbody")
@@ -60,7 +60,12 @@
 			row.forEach((val) => {
 				
 				const td = document.createElement("td");
-				td.textContent = val;
+				if(colnum == 2){
+					td.textContent = "hidden"
+				}else{
+					td.textContent = val;
+				}
+				
 				td.setAttribute("value",val);
 				td.setAttribute("name","col"+`${rownum}`+`${colnum}`)
 				var va = document.createElement("input");
