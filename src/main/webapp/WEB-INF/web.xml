@@ -40,6 +40,14 @@
   	<servlet-name>ViewAll</servlet-name>
   	<servlet-class>ViewAll</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>EmpReimUpdate</servlet-name>
+  	<servlet-class>EmpReimUpdate</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ManagerReimCheck</servlet-name>
+  	<servlet-class>ManagerReimCheck</servlet-class>
+  </servlet>
   
   <servlet-mapping>  
     <servlet-name>Login</servlet-name>  
@@ -76,6 +84,14 @@
   <servlet-mapping>
   	<servlet-name>ViewAll</servlet-name>
   	<url-pattern>/servlet9</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>EmpReimUpdate</servlet-name>
+  	<url-pattern>/servlet10</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ManagerReimCheck</servlet-name>
+  	<url-pattern>/servlet11</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>  

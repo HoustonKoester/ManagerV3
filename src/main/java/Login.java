@@ -26,7 +26,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     Employee attempt = gen.loginAttempt(n,p);
           if(attempt.getEmpName() != null) {
         	  if(attempt.getPosition().equalsIgnoreCase("employee")) {
-        		 // gen.getActiveEmployee(n, p);
+        		  gen.getActiveEmployee(n, p);
         		 // System.out.println(getServletContext().getRealPath("active.json"));
         		  File myFoo = new File(getServletContext().getRealPath("active.json"));
         			FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
@@ -42,6 +42,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
         		  RequestDispatcher rd=request.getRequestDispatcher("/Employee.jsp");  
                   rd.forward(request, response);  
         	  }else if(attempt.getPosition().equalsIgnoreCase("manager")) {
+        		  gen.getActiveEmployee(n, p);
         		  File myFoo = new File(getServletContext().getRealPath("active.json"));
       			FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
       			               System.out.println("this working?");                                      // false to overwrite.

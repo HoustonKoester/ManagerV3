@@ -7,7 +7,7 @@
 <title>Completed Reimbursements</title>
 </head>
 <body>
-	<h1>Completed reimbursement requests</h1>
+	<h1>Submitted reimbursement requests</h1>
 	<form action="Employee.jsp" method="post">
 		<input type="submit" value="back" />
 	</form>
@@ -19,6 +19,7 @@
 				<th>EmployeeName</th>
 				<th>Amount</th>
 				<th>Status</th>
+				<th>Accepted By</th>
 			</tr>
 		</thead>
 		<tbody>

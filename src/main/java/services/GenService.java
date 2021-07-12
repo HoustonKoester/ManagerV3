@@ -14,4 +14,6 @@ public boolean addPendingEmployee(ArrayList<String> information);
 public boolean deletePendingEmployee(ArrayList<String> information);
 public boolean getActiveEmployee(String username, String password);
 public boolean updateEmp(ArrayList<String> information);
+public Employee returnActiveEmp();
+public ArrayList<String> returnSpecificReim(int id);
 }

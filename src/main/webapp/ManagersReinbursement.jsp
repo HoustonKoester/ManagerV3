@@ -26,6 +26,7 @@ tr:hover{
 				<th>EmployeeName</th>
 				<th>Amount</th>
 				<th>Status</th>
+				<th>Accepted By</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,7 +42,7 @@ tr:hover{
 			window.location.hash = 'r';
 		window.location.reload(1);
 		}
-	}, 3000);
+	}, 3500);
 	
 	
 	const reinburseBody = document.querySelector("#reinburse-table > tbody")
@@ -85,23 +86,25 @@ tr:hover{
 				
 			});
 			colnum = 0;
-			var accept = document.createElement("button");
-			var deny = document.createElement("button");
-			accept.innerHTML = "Accept"
-			deny.innerHTML = "Deny"
-			accept.setAttribute("name","Accept")
-			deny.setAttribute("name","Deny")
-			accept.setAttribute("type","button")
-			deny.setAttribute("type","button")
-			tr.appendChild(accept);
-			tr.appendChild(deny);
+			
 			
 			tr.setAttribute("name","foo"+`${rownum}`);
 			rownum=rownum+1;
 			if(value == 0){
 				tr.bgColor = "blue"
+				var accept = document.createElement("button");
+				var deny = document.createElement("button");
+				accept.innerHTML = "Accept"
+				deny.innerHTML = "Deny"
+				accept.setAttribute("name","Accept")
+				deny.setAttribute("name","Deny")
+				accept.setAttribute("type","button")
+				deny.setAttribute("type","button")
+				tr.appendChild(accept);
+				tr.appendChild(deny);
 			}else if(value == 1){
 				tr.bgColor = "green"
+				
 			}else if(value == 2){
 				tr.bgColor = "red"
 			}
@@ -117,7 +120,22 @@ tr:hover{
 			var td = tr.getElementsByTagName("td")[3]
 			td.children[0].setAttribute("value","Accepted")
 			td.setAttribute("value","Accepted")
-			//td.textContent = "Accepted"
+			
+			var col=0
+			let name = "name"
+			fetch("active.json").then(response => response.json()).then(data => {
+				data.forEach((row) => {	
+					row.forEach((val) => {
+						if(col == 1){
+							name = val
+							var td = tr.getElementsByTagName("td")[4]
+							td.children[0].setAttribute("value",`${name}`)
+							td.setAttribute("value",`${name}`)
+						}
+						col = col + 1;
+					});
+				});
+			})
 			node.closest("tr").bgColor = "Green"
 		}else if(node.name == 'Deny'){
 			console.log("Denied")
@@ -125,6 +143,21 @@ tr:hover{
 			var td = tr.getElementsByTagName("td")[3]
 			td.children[0].setAttribute("value","Denied")
 			td.setAttribute("value","Denied")
+			var col=0
+			let name = "name"
+			fetch("active.json").then(response => response.json()).then(data => {
+				data.forEach((row) => {	
+					row.forEach((val) => {
+						if(col == 1){
+							name = val
+							var td = tr.getElementsByTagName("td")[4]
+							td.children[0].setAttribute("value",`${name}`)
+							td.setAttribute("value",`${name}`)
+						}
+						col = col + 1;
+					});
+				});
+			})
 			//td.textContent = "Denied"
 			node.closest("tr").bgColor = "Red"
 	}

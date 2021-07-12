@@ -3,13 +3,11 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,20 +18,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ConnectionUtil;
 
-import models.Address;
-import models.Employee;
+import services.GenServiceImpl;
 
 /**
- * Servlet implementation class ManagerServlet
+ * Servlet implementation class ManagerReimCheck
  */
-@WebServlet("/ManagerServlet")
-public class ManagerServlet extends HttpServlet {
+@WebServlet("/ManagerReimCheck")
+public class ManagerReimCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ManagerServlet() {
+    public ManagerReimCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,29 +40,27 @@ public class ManagerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Timed out").append(request.getContextPath());
-		RequestDispatcher rd=request.getRequestDispatcher("/Manager.jsp");  
-        rd.forward(request, response);  
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println(getServletContext().getRealPath("reinburse.json"));
 		File myFoo = new File(getServletContext().getRealPath("reinburse.json"));
 		FileWriter fooWriter = new FileWriter(myFoo, false); // true to append
-		               System.out.println("this working?");                                      // false to overwrite.
+		                                                   // false to overwrite.
 		fooWriter.write("[\n");
 		
-		String QUERY = "select * from reim";
-		Employee emp = new Employee();
+		String QUERY = "select * from reim where id=?";
+		GenServiceImpl gen = new GenServiceImpl();
 		ArrayList<String> result = new ArrayList<String>();
 		int a = 0;
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt = con.prepareStatement(QUERY);
 	    		) {
+	    	//System.out.println(gen.returnActiveEmp().getEmpNo());
+	    	stmt.setInt(1, Integer.parseInt(request.getParameter("userid")));
 	    	
   		  ResultSet rs = stmt.executeQuery();
 	        while(rs.next()) {
@@ -75,9 +70,14 @@ public class ManagerServlet extends HttpServlet {
 	    } catch (SQLException e) {
 	      e.printStackTrace();
 	    }
-	    for(a = 0; a<result.size()-1; a++) {
-	    	fooWriter.write(result.get(a) + ",\n");
+	    
+	   // System.out.println(result);
+	    	for(a = 0; a<result.size()-1; a++) {
+		    	fooWriter.write(result.get(a) + ",\n");
+		    
 	    }
+	    
+	    
 	    try {
 	    fooWriter.write(result.get(a));
 	    fooWriter.write("\n]");
@@ -92,11 +92,6 @@ public class ManagerServlet extends HttpServlet {
 	        rd.forward(request, response); 
 	        fooWriter.close();
 	    }
-//		 response.setContentType("text/html");  
-//		    PrintWriter out = response.getWriter();  
-//		          
-//		    String n=request.getParameter("userName");  
-//		    out.print("Welcome Manager "+n);  
 	}
 
 }

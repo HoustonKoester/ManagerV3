@@ -22,11 +22,12 @@ public class WelcomeServlet extends HttpServlet {
 		    
 		    String td[] = request.getParameterValues("id");
 		    ArrayList<String> information = new ArrayList<String>();
-		    String[] col = {"0","1","2","3"};
+		    String[] col = {"0","1","2","3","4"};
 		    int i = 0;
 		    for(String ids: td) {
 		    	for(String column: col) {
 		    		String val = request.getParameter("id"+ids+column);
+		    		System.out.println(val);
 				    information.add(val);
 				    i++;
 		    	}

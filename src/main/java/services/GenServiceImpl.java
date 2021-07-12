@@ -103,19 +103,17 @@ public class GenServiceImpl implements GenService{
 	@Override
 	public boolean updateDatabase(ArrayList<String> information) {
 		// TODO Auto-generated method stub
-		String QUERY2 = "insert into REIM values(?,?,?,?)";
+		String QUERY2 = "insert into REIM values(?,?,?,?,?)";
 		String QUERY1 = "truncate table REIM";
 		Employee emp = new Employee();
-		if(information.get(0).equals("test")) {
-			return false;
-		}
+		
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);
 	        PreparedStatement stmt1 = con.prepareStatement(QUERY1);) {
 	    	stmt1.execute();
 	    	int row = 0;
 	    	
-	    	for(int i=0; i < information.size(); i=i+4) {
+	    	for(int i=0; i < information.size(); i=i+5) {
 
 	    			int empid = Integer.parseInt(information.get(i));
 					stmt2.setInt(1, empid);
@@ -129,9 +127,14 @@ public class GenServiceImpl implements GenService{
 	    			String status = information.get(i+3);
 					stmt2.setString(4, status);
 					
-	    		
+					String acceptby = information.get(i+4);
+					stmt2.setString(5, acceptby);
 	    	
 	    	System.out.println("made it here");
+	    	
+	    	if(information.get(0).equals("test")) {
+				return false;
+			}
 	    	stmt2.executeUpdate();
 	    	}
 	      
@@ -146,10 +149,8 @@ public class GenServiceImpl implements GenService{
 	@Override
 	public boolean insertReim(String id, String name, String amounts) {
 		// TODO Auto-generated method stub
-		String QUERY2 = "insert into REIM values(?,?,?,?)";
-		if(name.equals("test")) {
-			return false;
-		}
+		String QUERY2 = "insert into REIM values(?,?,?,?,?)";
+
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
 	    	
@@ -166,9 +167,13 @@ public class GenServiceImpl implements GenService{
 	    			String status = "Pending";
 					stmt2.setString(4, status);
 					
-	    		
+
+					stmt2.setString(5, status);
 	    	
 	    	//System.out.println("made it here");
+					if(name.equals("test")) {
+						return false;
+					}
 	    	stmt2.executeUpdate();
 	    	
 	      
@@ -218,9 +223,7 @@ public class GenServiceImpl implements GenService{
 	public boolean addNewUser(int id, String name, String password, String empname, String empcity, String empstate,
 			String position, String email) {
 		String QUERY2 = "insert into PENDING values(?,?,?,?,?,?,?,?,?)";
-		if(id == -1) {
-			return false;
-		}
+
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt2 = con.prepareStatement(QUERY2);) {
 					stmt2.setInt(1, id);
@@ -233,7 +236,9 @@ public class GenServiceImpl implements GenService{
 					stmt2.setString(8, email);
 					stmt2.setString(9, "invalid");
 	    		
-	    	
+					if(id == -1) {
+						return false;
+					}
 	    	//System.out.println("made it here");
 	    	stmt2.executeUpdate();
 	    	
@@ -251,9 +256,7 @@ public class GenServiceImpl implements GenService{
 		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
 		String QUERY1 = "delete from pending where ID = ?";
 		Employee emp = new Employee();
-		if(information.get(0).equals("test")) {
-			return false;
-		}
+
 	    	 // Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
 
@@ -296,7 +299,11 @@ public class GenServiceImpl implements GenService{
 
 	    			String amount = "valid";
 					stmt2.setString(9, amount);
+					
 					emailMsgTxt = "Welcome in " + username + "\n\n" + "You've been added to the EmployeeManagement System!\n You may now login.\n\n" + "Username: " + username + "\nPassword: " + password;
+					if(information.get(0).equals("test")) {
+						return false;
+					}
 					try {
 						sendSSLMessage(email, emailSubjectTxt, emailMsgTxt,
 						        emailFromAddress);
@@ -322,9 +329,7 @@ public class GenServiceImpl implements GenService{
 	public boolean deletePendingEmployee(ArrayList<String> information) {
 		String QUERY2 = "insert into emp values(?,?,?,?,?,?,?,?,?)";
 		String QUERY1 = "delete from pending where ID = ?";
-		if(information.get(0).equals("test")) {
-			return false;
-		}
+
 		
 	    try (Connection con = ConnectionUtil.getConnection();
 	    		PreparedStatement stmt1 = con.prepareStatement(QUERY1);
@@ -333,6 +338,9 @@ public class GenServiceImpl implements GenService{
 
     			int empid = Integer.parseInt(information.get(i));
 				stmt1.setInt(1, empid);
+				if(information.get(0).equals("test")) {
+					return false;
+				}
 				stmt1.executeUpdate();
 	    	}    
 	}catch (SQLException e) {
@@ -378,6 +386,9 @@ public class GenServiceImpl implements GenService{
 				stmt2.setString(8,  rs.getString("email"));
 
 				stmt2.setString(9,  rs.getString("valid"));
+				if(rs.getInt("ID") == -1) {
+					return false;
+				}
 	        	stmt2.executeUpdate();
 	        }
 	    } catch (SQLException e) {
@@ -392,9 +403,7 @@ public class GenServiceImpl implements GenService{
 	public boolean updateEmp(ArrayList<String> information) {
 		String QUERY = "update emp set username=?,password=?,empname=?,empcity=?,empstate=?,email=? where ID =?";
 		Employee emp = new Employee();
-		if(information.get(0).equals("test")) {
-			return false;
-		}
+
 	    try (Connection con = ConnectionUtil.getConnection();
 	        PreparedStatement stmt = con.prepareStatement(QUERY);) {
 	    	//stmt.setInt(1, 1);
@@ -406,7 +415,9 @@ public class GenServiceImpl implements GenService{
 	        	stmt.setString(5, information.get(5));
 	        	stmt.setString(6, information.get(6));
 	        	stmt.setString(7, information.get(0));
-	        
+	    		if(information.get(0).equals("test")) {
+	    			return false;
+	    		}
 	        	stmt.executeUpdate();
 	    } catch (SQLException e) {
 	      e.printStackTrace();
@@ -414,5 +425,61 @@ public class GenServiceImpl implements GenService{
 	    }
 		return true;
 	}
+
+
+	@Override
+	public Employee returnActiveEmp() {
+		String QUERY = "select * from active";
+		Employee emp = new Employee();
+		   try (Connection con = ConnectionUtil.getConnection();
+				   PreparedStatement stmt = con.prepareStatement(QUERY);) {
+			   	
+			   ResultSet rs = stmt.executeQuery();
+			   while(rs.next()) {
+			   emp.setUsername(rs.getString("username"));
+		        emp.setPassword(rs.getString("password"));
+		        emp.setEmpNo(rs.getInt("ID"));
+		        emp.setEmpName(rs.getString("empname"));
+		        emp.setPosition(rs.getString("position"));
+		        emp.setAddress(new Address(rs.getString("empcity"),rs.getString("empstate")));
+		        emp.setEmail(rs.getString("email"));
+			   }
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		   return emp;
+}
+
+
+	@Override
+	public ArrayList<String> returnSpecificReim(int id) {
+		String QUERY = "select * from reim where id=?";
+		ArrayList<String> values = new ArrayList<String>();
+		   try (Connection con = ConnectionUtil.getConnection();
+				   PreparedStatement stmt = con.prepareStatement(QUERY);) {
+			   	stmt.setInt(0, id);
+			   ResultSet rs = stmt.executeQuery();
+			   while(rs.next()) {
+				   int val = rs.getInt("id");
+				   values.add(String.valueOf(val));
+				   values.add(rs.getString("empname"));
+				   int val2 = rs.getInt("amount");
+				   values.add(String.valueOf(val2));
+				   
+				   values.add(rs.getString("status"));
+				   values.add(rs.getString("acceptby"));
+			   }
+			   
+			   
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return values;
+	}
+	
+	
+	
 	
 }
