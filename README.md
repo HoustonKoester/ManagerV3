@@ -41,4 +41,12 @@ After an employee is accepted they will recieve an email with their username and
 - JUnit
 
 ### How to setup project
-Inside the project folder you must add information to 2 files to be able to have the project work correctly. You must add in your database information to the DB.properties file located in the main project folder. You must also add in your email information to the 
+Inside the project folder you must add information to 2 files to be able to have the project work correctly. 
+
+You must add in your database information to the DB.properties file located in the main project folder. 
+
+You must also add in your email information to the genservicesimpl.java file located in src/main/java/services.
+
+The databases must be setup in accordance with how data is accessed throughout the rest of the project.
+
+###### Project Created By: Houston Koester
