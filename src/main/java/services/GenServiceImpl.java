@@ -30,7 +30,7 @@ public class GenServiceImpl implements GenService{
 	    boolean debug = true;
 
 	    Properties props = new Properties();
-	    props.put("mail.smtp.host", SMTP_HOST_NAME);
+	    props.put("mail.smtp.host", SMTP_HOST_NAME); 
 	    props.put("mail.smtp.auth", "true");
 	    props.put("mail.debug", "true");
 	    props.put("mail.smtp.port", SMTP_PORT);
@@ -45,7 +45,7 @@ public class GenServiceImpl implements GenService{
 
 	              getPasswordAuthentication() {
 	                    return new   
-	                 PasswordAuthentication("houstonkoester@aol.com", "wkmqsfgqatsdagsg");
+	                 PasswordAuthentication("INSERT EMAIL", "INSERT AUTH/PASSWORD");
 	                }
 	            });
 
@@ -66,11 +66,11 @@ public class GenServiceImpl implements GenService{
 	    msg.setContent(message, "text/plain");
 	    Transport.send(msg);
 	   }
-	private static final String SMTP_HOST_NAME = "smtp.aol.com";
+	private static final String SMTP_HOST_NAME = "INSERT HOST NAME";
 	private static final String SMTP_PORT = "465";
 	private static String emailMsgTxt = "You've been added to the EmployeeManagement System!\n You may now login.";
 	private static final String emailSubjectTxt = "Added to EmployeeList";
-	private static final String emailFromAddress = "houstonkoester@aol.com";
+	private static final String emailFromAddress = "INSERT EMAIL";
 	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 	private static String sendTo = "null" ;
 	
